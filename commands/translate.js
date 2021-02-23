@@ -27,6 +27,12 @@ module.exports = {
       message.channel.stopTyping()
       return
     }
+    if (cycles > 50) {
+      message.channel.send(`${prefix}Translate does not support greater than 50 cycles
+Please also be mindful when selecting a high number of cycles, and do not do it frequently`)
+      message.channel.stopTyping()
+      return
+    }
     // Gets the text argument
     const text = message.content.toLowerCase().slice(prefix.length).trim().replace(`translate ${cycles} `, '')
     // Sends an update message
