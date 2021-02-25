@@ -4,7 +4,7 @@
 const fs = require('fs')
 const Discord = require('discord.js')
 const config = require('./config.json')
-const keys = require('./Security/devkeys.json')
+const keys = require('./Security/keys.json')
 // Creates a new client
 const client = require('./client.js')
 client.commands = new Discord.Collection()
@@ -38,6 +38,9 @@ client.on('message', (message) => {
       if (command.DMonly && message.channel.type !== 'dm') {
         message.channel.send('That command can be used in DMs only.')
         return
+      } else if (command.guildOnly && message.channel.type !== 'text') {
+        message.channel.send('That command can be used in guild channels only.')
+        return
       }
       // Try to execute the command, and catch any errors
       try {
@@ -50,6 +53,26 @@ client.on('message', (message) => {
       }
     }
   }
+
+  // imagesOnly enforcer
+  fs.readFile('./imagesOnly.json', (err, data) => {
+    // Error handling
+    if (err) {
+      throw err
+    }
+
+    // Parses the data to an object
+    const imagesOnly = JSON.parse(data.toString())
+
+    // If imagesOnly.guildId exists
+    if (imagesOnly[message.guild.id]) {
+      // If imagesOnly.guildId.messageId is true, and if the message has no attachments
+      if (imagesOnly[message.guild.id][message.channel.id] && !message.attachments.first() && !message.embeds.length) {
+        // Deletes the message
+        message.delete({ reason: 'Imageless message sent in image-only channel' })
+      }
+    }
+  })
 })
 
 client.login(keys.discordToken)
