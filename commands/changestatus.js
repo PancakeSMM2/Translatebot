@@ -41,6 +41,13 @@ module.exports = {
         }
       }
       client.user.setPresence(newStatus) // Sets the bots presence
+    } else {
+      message.channel.send(`Illegal presence type. Use one of the following:
+PLAYING
+STREAMING
+LISTENING
+WATCHING
+COMPETING`)
     }
   }
 }
