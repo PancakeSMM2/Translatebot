@@ -4,9 +4,9 @@
 const fs = require('fs')
 const Discord = require('discord.js')
 const config = require('./config.json')
-const keys = require('./Security/keys.json')
+const keys = require('./Security/devkeys.json')
 // Creates a new client
-const client = new Discord.Client({ presence: { activity: { name: config.presenceText, type: config.presenceType } } })
+const client = require('./client.js')
 client.commands = new Discord.Collection()
 
 // Loads the commands
@@ -23,18 +23,25 @@ client.once('ready', () => {
 })
 
 client.on('message', (message) => {
-  // If the message starts with the prefix AND does not come from a bot AND is sent in a DM channel
+  // If the message starts with the prefix AND does not come from a bot
   // eslint-disable-next-line valid-typeof
-  if (message.content.startsWith(config.prefix) && !message.author.bot && message.channel.type === 'dm') {
+  if (message.content.startsWith(config.prefix) && !message.author.bot) {
     // Gets the command arguments (as an array) and the command itself (as a string)
     const args = message.content.slice(config.prefix.length).trim().split(/ +/)
-    const command = args.shift().toLowerCase()
+    const commandName = args.shift().toLowerCase()
 
     // If the attempted command is a command the bot has
-    if (client.commands.has(command)) {
+    if (client.commands.has(commandName)) {
+      // Get the command
+      const command = client.commands.get(commandName)
+      // Do safety checks
+      if (command.DMonly && message.channel.type !== 'dm') {
+        message.channel.send('That command can be used in DMs only.')
+        return
+      }
       // Try to execute the command, and catch any errors
       try {
-        client.commands.get(command).execute(message, args)
+        command.execute(message, args)
       } catch (error) {
         // Logs the error to the console, and tells the user about the error.
         console.error(error)
