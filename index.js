@@ -54,25 +54,28 @@ client.on('message', (message) => {
     }
   }
 
+  // If the message is sent in a guild
+  if (message.channel.type === 'text') {
   // imagesOnly enforcer
-  fs.readFile('./imagesOnly.json', (err, data) => {
+    fs.readFile('./imagesOnly.json', (err, data) => {
     // Error handling
-    if (err) {
-      throw err
-    }
-
-    // Parses the data to an object
-    const imagesOnly = JSON.parse(data.toString())
-
-    // If imagesOnly.guildId exists
-    if (imagesOnly[message.guild.id]) {
-      // If imagesOnly.guildId.messageId is true, and if the message has no attachments
-      if (imagesOnly[message.guild.id][message.channel.id] && !message.attachments.first() && !message.embeds.length) {
-        // Deletes the message
-        message.delete({ reason: 'Imageless message sent in image-only channel' })
+      if (err) {
+        throw err
       }
-    }
-  })
+
+      // Parses the data to an object
+      const imagesOnly = JSON.parse(data.toString())
+
+      // If imagesOnly.guildId exists
+      if (imagesOnly[message.guild.id]) {
+      // If imagesOnly.guildId.messageId is true, and if the message has no attachments
+        if (imagesOnly[message.guild.id][message.channel.id] && !message.attachments.first() && !message.embeds.length) {
+        // Deletes the message
+          message.delete({ reason: 'Imageless message sent in image-only channel' })
+        }
+      }
+    })
+  }
 })
 
 client.login(keys.discordToken)
