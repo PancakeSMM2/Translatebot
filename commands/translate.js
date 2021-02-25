@@ -6,6 +6,7 @@ const randomIntInclusive = require('../randomIntInclusive')
 
 module.exports = {
   name: 'translate',
+  DMonly: true,
   /**
    * Executes the command
    * @param {Message} message The message used to execute the command
