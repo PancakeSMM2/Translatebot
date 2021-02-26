@@ -7,10 +7,8 @@ module.exports = {
   name: 'changestatus',
   // When the command is executed
   execute: (message, args) => {
-    // Gets the name of the status
-    const statusName = message.content.slice(prefix.length + module.exports.name.length).trim().replace(`${args[0]}`, '').trim()
-    // Gets the type of the status
-    const statusType = args.shift().toUpperCase()
+    // Gets the proposed type of the status
+    const statusType = args[0].toUpperCase()
     // The list of legal status types
     const legalStatusTypes = [
       'PLAYING',
@@ -20,34 +18,52 @@ module.exports = {
       'COMPETING'
     ]
     // Creates a utility variable
-    let isStatusTypeLegal = false
+    let statusTypeLegal = false
 
     // For each legal status type
     legalStatusTypes.forEach((value) => {
       // If the proposed status type equals any of the legal status types
       if (statusType === value) {
         // Set isStatusTypeLegal to true
-        isStatusTypeLegal = true
+        statusTypeLegal = true
       }
     })
 
+    // Creats a newStatus object to use to set the bots presence
+    let newStatus = {}
+
     // If the status type is legal
-    if (isStatusTypeLegal) {
-      // Creates a new object to use to set the bots presence
-      const newStatus = {
+    if (statusTypeLegal) {
+      // Gets the name of the status
+      const statusName = message.content.slice(prefix.length + module.exports.name.length).trim().replace(args[0], '').trim()
+
+      // Sets the newStatus object
+      newStatus = {
         activity: {
           type: statusType,
           name: statusName
         }
       }
-      client.user.setPresence(newStatus) // Sets the bots presence
+
+      message.channel.send(`Setting ${statusType} status of name '${statusName}'`) // User feedback
     } else {
-      message.channel.send(`Illegal presence type. Use one of the following:
-PLAYING
-STREAMING
-LISTENING
-WATCHING
-COMPETING`)
+      // If the status type is not legal
+      // Gets the name of the status
+      const statusName = message.content.slice(prefix.length + module.exports.name.length).trim()
+
+      // Sets the newStatus object
+      newStatus = {
+        activity: {
+          type: 'PLAYING',
+          name: statusName
+        }
+      }
+      // User feedback
+      message.channel.send(`No valid status type specified, defaulting to PLAYING
+Setting PLAYING status of name '${statusName}'
+(Valid status types include playing, streaming, listening, watching, and competing`)
     }
+
+    client.user.setPresence(newStatus) // Sets the bots presence
   }
 }
