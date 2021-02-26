@@ -7,6 +7,18 @@ module.exports = {
   name: 'changestatus',
   // When the command is executed
   execute: (message, args) => {
+    // Error prevention
+    if (args.length === 0) {
+      // User feedback
+      message.channel.send(`List of valid types is the following:
+PLAYING
+STREAMING
+LISTENING
+WATCHING
+COMPETING`)
+      return
+    }
+
     // Gets the proposed type of the status
     const statusType = args[0].toUpperCase()
     // The list of legal status types
