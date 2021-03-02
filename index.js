@@ -1,8 +1,10 @@
 'use strict'
 
-// Imports file system, discord.js, the config, and the keys
+// Imports
 const fs = require('fs')
 const Discord = require('discord.js')
+const cronManager = require('./cronManager.js')
+const statusReset = require('./statusReset.js')
 const config = require('./config.json')
 const keys = require('./Security/keys.json')
 // Creates a new client
@@ -19,6 +21,8 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
+  cronManager.startAll()
+  statusReset()
   console.log('Ready')
 })
 
