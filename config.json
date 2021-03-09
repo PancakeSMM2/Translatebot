@@ -1,5 +1,7 @@
 {
     "presenceType": "PLAYING",
     "presenceText": "remember that we love you",
-    "prefix": "!"
+    "prefix": "!",
+    "logServerID": "806936303538143282",
+    "logChannelID": "818943873409744926"
 }
