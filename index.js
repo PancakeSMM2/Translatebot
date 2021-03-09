@@ -7,6 +7,7 @@ const cronManager = require('./cronManager.js')
 const statusReset = require('./statusReset.js')
 const config = require('./config.json')
 const keys = require('./Security/keys.json')
+const log = require('./log.js')
 // Creates a new client
 const client = require('./client.js')
 client.commands = new Discord.Collection()
@@ -23,7 +24,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
   cronManager.startAll()
   statusReset()
-  console.log('Ready')
+  log('Ready')
 })
 
 client.on('message', (message) => {
