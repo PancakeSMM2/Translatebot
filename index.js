@@ -3,7 +3,6 @@
 // Imports
 const fs = require('fs')
 const Discord = require('discord.js')
-const cronManager = require('./cronManager.js')
 const statusReset = require('./statusReset.js')
 const config = require('./config.json')
 const keys = require('./Security/keys.json')
@@ -22,6 +21,7 @@ for (const file of commandFiles) {
 }
 
 client.once('ready', () => {
+  const cronManager = require('./cronManager.js')
   cronManager.startAll()
   statusReset()
   log('Ready')
