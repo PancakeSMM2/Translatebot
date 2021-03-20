@@ -4,8 +4,9 @@
 const fs = require('fs')
 const Discord = require('discord.js')
 const statusReset = require('./statusReset.js')
+const avatarReset = require('./avatarReset')
 const config = require('./config.json')
-const keys = require('./Security/keys.json')
+const keys = require('./Security/devkeys.json')
 const log = require('./log.js')
 // Creates a new client
 const client = require('./client.js')
@@ -24,6 +25,7 @@ client.once('ready', () => {
   const cronManager = require('./cronManager.js')
   cronManager.startAll()
   statusReset()
+  avatarReset()
   log('Ready')
 })
 

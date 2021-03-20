@@ -3,6 +3,7 @@
 const Cron = require('cron')
 const statusReset = require('./statusReset.js')
 const purgeChannels = require('./purgeChannels.js')
+const avatarReset = require('./avatarReset')
 const log = require('./log.js')
 
 /**
@@ -26,6 +27,10 @@ const cronManager = {
   purgeChannels: Cron.job('0 0 0 * * */1', purgeChannels, log('cronjob \'purgeChannels\''), false, 'America/Chicago'),
   purgeChannelsInit: () => {
     cronManager.purgeChannels.start()
+  },
+  avatarReset: Cron.job('0 0 0 * * */1', avatarReset, log('cronjob \'avatarReset\''), false, 'America/Chicago'),
+  avatarResetInit: () => {
+    cronManager.avatarReset.start()
   }
 }
 
