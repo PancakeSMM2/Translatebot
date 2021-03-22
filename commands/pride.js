@@ -37,6 +37,7 @@ Asexual / Ace
 Transgender / Trans
 Nonbinary / Nonbi
 Genderfluid
+Aromantic / Aro
 Aspergers / Aspie`
           }
         ]
@@ -104,6 +105,14 @@ Aspergers / Aspie`
           author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
           color: randomRainbowColor(),
           image: { url: 'https://cdn.discordapp.com/attachments/716108846816297040/823667739331002478/images.png' }
+        }))
+        break
+      case 'aromantic':
+      case 'aro':
+        message.channel.send(new Discord.MessageEmbed({
+          author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
+          color: randomRainbowColor(),
+          image: { url: 'https://cdn.discordapp.com/attachments/538819764634517504/823683280846061578/unknown.jpeg' }
         }))
         break
       case 'aspergers':
