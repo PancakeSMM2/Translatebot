@@ -68,7 +68,6 @@ module.exports = {
       messagesBackProvided = false
     }
 
-    console.log(messagesBack)
     // Fetches the message above the message invoking the command
     message.channel.messages.fetch({ limit: messagesBack, before: message.id })
       .catch(console.error) // Error handling
@@ -78,7 +77,6 @@ module.exports = {
         const craftedMessage = messageAbove // A message to modify
         const suppliedCommand = args[0] // The command to attempt to execute
 
-        console.log(suppliedCommand)
         if (!client.commands.has(suppliedCommand)) { // If the supplied command does not exist
           message.react('❔')
           return
@@ -95,8 +93,6 @@ module.exports = {
         // Sets the crafted messages content
         craftedMessage.content = `${prefix}${suppliedCommand} ${suppliedArgs} ${messageAbove.content}`
 
-        console.log(craftedMessage)
-        console.log(craftedMessage.content)
         // Sends the crafted message to the command handler
         commandHandler(craftedMessage)
       })
