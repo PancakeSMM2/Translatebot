@@ -41,6 +41,7 @@ Aspergers / Aspie`
           }
         ]
       }))
+      return
     }
 
     switch (args[0].toLowerCase()) {
