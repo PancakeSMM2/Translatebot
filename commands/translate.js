@@ -26,12 +26,12 @@ module.exports = {
           },
           {
             name: 'Cycles',
-            value: 'The number of translations to do. May be increased by 1 if it has to do a final translation back into the original language',
+            value: 'The number of translations to do. May be increased by 1 if it has to do a final translation back into the original language. Defaults to 5 if not specified',
             inline: true
           },
           {
             name: 'Text',
-            value: 'The text that will be translated. Can be in any language, as long as it\'s a language supported by Google Translate',
+            value: 'The text that will be translated. Can be in any language, as long as it\'s one of the 111 languages supported by Google Translate',
             inline: true
           }
         ]
@@ -45,7 +45,7 @@ module.exports = {
     if (!isNaN(cycles)) {
       // Gets the text argument
       text = message.content.slice(prefix.length).trim().slice('translate'.length + cycles.toString().length + 2)
-    } else {
+    } else { // If cycles has not been provided, default to 5 cycles
       cycles = 5
       text = message.content.slice(prefix.length).trim().slice('translate'.length).trim()
     }

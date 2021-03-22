@@ -3,6 +3,7 @@
 // Imports
 const fs = require('fs')
 const Discord = require('discord.js')
+const commandHandler = require('./commandHandler')
 const statusReset = require('./statusReset.js')
 const avatarReset = require('./avatarReset')
 const config = require('./config.json')
@@ -10,7 +11,7 @@ const keys = require('./Security/devkeys.json')
 const log = require('./log.js')
 // Creates a new client
 const client = require('./client.js')
-const randomRainbowColor = require('./randomRainbowColor.js')
+// const randomRainbowColor = require('./randomRainbowColor.js')
 client.commands = new Discord.Collection()
 
 // Loads the commands
@@ -34,6 +35,8 @@ client.on('message', (message) => {
   // If the message starts with the prefix AND does not come from a bot
   // eslint-disable-next-line valid-typeof
   if (message.content.startsWith(config.prefix) && !message.author.bot) {
+    commandHandler(message)
+    /*
     // Gets the command arguments (as an array) and the command itself (as a string)
     const args = message.content.slice(config.prefix.length).trim().split(/ +/)
     const commandName = args.shift().toLowerCase()
@@ -67,7 +70,10 @@ client.on('message', (message) => {
         message.reply(`There was an error executing that command. Please let one of the devs know, something has likely just gone quite wrong.
         ${error}`)
       }
+    } else { // If that command does not exist
+      message.react('❓')
     }
+    */
   }
 
   // If the message is sent in a guild
