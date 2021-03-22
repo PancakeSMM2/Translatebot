@@ -130,6 +130,7 @@ Please also be courteous when selecting a high number of cycles, and do not do i
           const options = { from: previousLang.code, to: firstLang.code }
           // Translates the text
           const translated = await translate.translate(translateText, options)
+            .catch(console.error)
           translateText = translated[0]
         }
         message.channel.send(translateText)
