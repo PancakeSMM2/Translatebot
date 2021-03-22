@@ -2,6 +2,8 @@
 
 const client = require('../client')
 const { prefix } = require('../config.json')
+const randomRainbowColor = require('../randomRainbowColor')
+const Discord = require('discord.js')
 
 module.exports = {
   name: 'changestatus',
@@ -10,12 +12,34 @@ module.exports = {
     // Error prevention
     if (args.length === 0) {
       // User feedback
-      message.channel.send(`List of valid types is the following:
-PLAYING
+      message.channel.send(new Discord.MessageEmbed({
+        color: randomRainbowColor(),
+        fields: [
+          {
+            name: `${prefix}changestatus [Type] <Text>`,
+            value: '\u200b'
+          },
+          {
+            name: 'Type',
+            value: 'The status type you want. Bots can\'t have custom statuses, so you have to pick from one of the options listed below',
+            inline: true
+          },
+          {
+            name: 'Text',
+            value: 'The text you want the status to have. There are some character limits and such, but no matter what nothing will break',
+            inline: true
+          },
+          {
+            name: 'Valid status types',
+            value: `PLAYING
 STREAMING
 LISTENING
 WATCHING
-COMPETING`)
+COMPETING
+`
+          }
+        ]
+      }))
       return
     }
 
@@ -57,7 +81,28 @@ COMPETING`)
         }
       }
 
-      message.channel.send(`Setting ${statusType} status of name '${statusName}'`) // User feedback
+      message.react('✅') // User feedback
+      switch (statusType) { // One emoji to indicate which status type was detected
+        case 'PLAYING':
+          message.react('🎮')
+          break
+        case 'STREAMING':
+          message.react('🎥')
+          break
+        case 'LISTENING':
+          message.react('🎧')
+          break
+        case 'WATCHING':
+          message.react('📺')
+          break
+        case 'COMPETING':
+          message.react('🥊')
+          break
+
+        default:
+          message.react('⁉') // It should be fully impossible for this code to run, but just in case
+          break
+      }
     } else {
       // If the status type is not legal
       // Gets the name of the status
@@ -71,9 +116,8 @@ COMPETING`)
         }
       }
       // User feedback
-      message.channel.send(`No valid status type specified, defaulting to PLAYING
-Setting PLAYING status of name '${statusName}'
-(Valid status types include playing, streaming, listening, watching, and competing`)
+      message.react('✅')
+      message.react('🎮') // Indicates that it defaulted to the PLAYING status type
     }
 
     client.user.setPresence(newStatus) // Sets the bots presence
