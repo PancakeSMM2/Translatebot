@@ -7,7 +7,7 @@ module.exports = {
   execute: (message, args) => {
     avatarReset()
 
-    message.react('👍')
+    message.react('✅')
       .catch(console.error)
   }
 }

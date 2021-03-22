@@ -10,6 +10,7 @@ const keys = require('./Security/devkeys.json')
 const log = require('./log.js')
 // Creates a new client
 const client = require('./client.js')
+const randomRainbowColor = require('./randomRainbowColor.js')
 client.commands = new Discord.Collection()
 
 // Loads the commands
@@ -43,10 +44,18 @@ client.on('message', (message) => {
       const command = client.commands.get(commandName)
       // Do safety checks
       if (command.DMonly && message.channel.type !== 'dm') {
-        message.channel.send('That command can be used in DMs only.')
+        message.channel.send(new Discord.MessageEmbed({
+          fields: [
+            { name: 'Error', value: 'That command is DM-only', color: randomRainbowColor() }
+          ]
+        }))
         return
       } else if (command.guildOnly && message.channel.type !== 'text') {
-        message.channel.send('That command can be used in guild channels only.')
+        message.channel.send(new Discord.MessageEmbed({
+          fields: [
+            { name: 'Error', value: 'That command is for guild channels only', color: randomRainbowColor() }
+          ]
+        }))
         return
       }
       // Try to execute the command, and catch any errors
@@ -76,7 +85,7 @@ client.on('message', (message) => {
       // If imagesOnly.guildId exists
       if (imagesOnly[message.guild.id]) {
       // If imagesOnly.guildId.messageId is true, and if the message has no attachments
-        if (imagesOnly[message.guild.id][message.channel.id] && !message.attachments.first() && !message.embeds.length) {
+        if (imagesOnly[message.guild.id][message.channel.id] && !message.attachments.first() && !message.embeds.length && message.content !== `${config.prefix}imagesonly`) {
         // Deletes the message
           message.delete({ reason: 'Imageless message sent in image-only channel' })
         }

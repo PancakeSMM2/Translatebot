@@ -54,9 +54,17 @@ module.exports = {
         }
         // If serverConfig.guildId.channelId is true
         if (serverConfig[guildId][channelId]) {
-          message.channel.send(`<#${message.channel.id}> is now image-only`)
+          // Indicates that the channel is now image-only
+          message.react('🚫')
+            .catch(console.error)
+          message.react('💬')
+            .catch(console.error)
         } else {
-          message.channel.send(`<#${message.channel.id}> is no longer image-only`)
+          // Indicates that the channel is no longer image-only
+          message.react('✅')
+            .catch(console.error)
+          message.react('💬')
+            .catch(console.error)
         }
       })
     })
