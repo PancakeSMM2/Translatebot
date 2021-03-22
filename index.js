@@ -7,7 +7,7 @@ const commandHandler = require('./commandHandler')
 const statusReset = require('./statusReset.js')
 const avatarReset = require('./avatarReset')
 const config = require('./config.json')
-const keys = require('./Security/devkeys.json')
+const keys = require('./Security/keys.json')
 const log = require('./log.js')
 // Creates a new client
 const client = require('./client.js')
