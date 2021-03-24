@@ -68,6 +68,11 @@ module.exports = {
       messagesBackProvided = false
     }
 
+    // Error prevention
+    if (messagesBack > 100) {
+      message.react('🚫')
+    }
+
     // Fetches the message above the message invoking the command
     message.channel.messages.fetch({ limit: messagesBack, before: message.id })
       .catch(console.error) // Error handling
@@ -95,6 +100,8 @@ module.exports = {
 
         // Sends the crafted message to the command handler
         commandHandler(craftedMessage)
+
+        message.react('☑')
       })
   }
 }
