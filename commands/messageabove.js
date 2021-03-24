@@ -71,6 +71,7 @@ module.exports = {
     // Error prevention
     if (messagesBack > 100) {
       message.react('🚫')
+      return
     }
 
     // Fetches the message above the message invoking the command
