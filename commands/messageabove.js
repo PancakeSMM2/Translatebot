@@ -7,7 +7,7 @@ const { prefix } = require('../config.json')
 const Discord = require('discord.js')
 
 module.exports = {
-  name: 'messageabove',
+  name: 'above',
   execute: (message, args) => {
     if (args.length === 0) {
       message.channel.send(new Discord.MessageEmbed({

@@ -30,10 +30,12 @@ module.exports = {
           {
             name: 'Supported Flags',
             value: `Gay
-Lesbian
+Lesbian / Les
 Bisexual / Bi
 Pansexual / Pan
 Asexual / Ace
+Demisexual / Demi
+Demilesbian / Demiles
 Transgender / Trans
 Nonbinary / Nonbi
 Genderfluid
@@ -54,6 +56,7 @@ Aspergers / Aspie`
         }))
         break
       case 'lesbian':
+      case 'les':
         message.channel.send(new Discord.MessageEmbed({
           author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
           color: randomRainbowColor(),
@@ -82,6 +85,22 @@ Aspergers / Aspie`
           author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
           color: randomRainbowColor(),
           image: { url: 'https://cdn.discordapp.com/attachments/716108846816297040/823666508486934528/FSLixSyIhGwAAAAAAAAAAAAAAwL99CfsRdhIUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVK.png' }
+        }))
+        break
+      case 'demisexual':
+      case 'demi':
+        message.channel.send(new Discord.MessageEmbed({
+          author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
+          color: randomRainbowColor(),
+          image: { url: 'https://cdn.discordapp.com/attachments/764208539597406268/824639300024664074/RbpkCiS86j4cykPlhd9rmpSCbbvt40kF62mKvIajAPObpNcP9P2AAAAAElFTkSuQmCC.png' }
+        }))
+        break
+      case 'demilesbian':
+      case 'demiles':
+        message.channel.send(new Discord.MessageEmbed({
+          author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
+          color: randomRainbowColor(),
+          image: { url: 'https://cdn.discordapp.com/attachments/764208539597406268/824635686866124851/1If7PhUIbRrVwgrF9ozocPKgGzrByoRsq0fbFTItn6oESHbuFs68ls68ls68ls68ls68ls68ls68ls68ls68ls68ls68ls68nA40.png' }
         }))
         break
       case 'transgender':
