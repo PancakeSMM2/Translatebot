@@ -1,52 +1,91 @@
 'use strict'
 
 const Discord = require('discord.js')
+const fs = require('fs')
 const randomRainbowColor = require('../randomRainbowColor')
 const { prefix } = require('../config.json')
 
 module.exports = {
   name: 'pride',
   execute: (message, args) => {
-    // If no args are provided, give a syntax embed
-    if (args.length === 0) {
-      message.channel.send(new Discord.MessageEmbed({
-        author: { iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png', name: 'Pride' },
-        color: randomRainbowColor(),
-        fields: [
-          {
-            name: `${prefix}pride <Flag>`,
-            value: '\u200b'
-          },
-          {
-            name: 'Flag',
-            value: 'One of the supported pride flags, as listed below. I tried to add each flag we have as an emote or as a plaid. If you want a flag added to this, lemme know!',
-            inline: true
-          },
-          {
-            name: '\u200b',
-            value: '\u200b',
-            inline: true
-          },
-          {
-            name: 'Supported Flags',
-            value: `Gay
-Lesbian / Les
-Bisexual / Bi
-Pansexual / Pan
-Asexual / Ace
-Demisexual / Demi
-Demilesbian / Demiles
-Transgender / Trans
-Nonbinary / Nonbi
-Genderfluid
-Aromantic / Aro
-Aspergers / Aspie`
-          }
-        ]
-      }))
-      return
-    }
+    fs.readFile('./prideFlags.json', (err, data) => {
+      if (err) {
+        console.error(err)
+      }
+      const flags = JSON.parse(data)
 
+      // If no args are provided, give a syntax embed
+      if (args.length === 0) {
+        let flagsList = ''
+        // For each flag
+        flags.forEach(flag => {
+          // For each name of each flag
+          flag.names.forEach((name, index) => {
+            if (index === 0) {
+              flagsList = `${flagsList}
+${name}` // If this is the first name of the flag, make a newline and put this name first
+            } else {
+              flagsList = `${flagsList} / ${name}` // If this is not the first name of the flag, list it as an alias of the first name
+            }
+          })
+        })
+
+        message.channel.send(new Discord.MessageEmbed({
+          author: { iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png', name: 'Pride' },
+          color: randomRainbowColor(),
+          fields: [
+            {
+              name: `${prefix}pride <Flag>`,
+              value: '\u200b'
+            },
+            {
+              name: 'Flag',
+              value: 'One of the supported pride flags, as listed below. I tried to add each flag we have as an emote or as a plaid. If you want a flag added to this, lemme know!',
+              inline: true
+            },
+            {
+              name: '\u200b',
+              value: '\u200b',
+              inline: true
+            },
+            {
+              name: 'Supported Flags',
+              value: flagsList
+            }
+          ]
+        }))
+        return
+      }
+
+      const requestedFlag = flags.find(flag => {
+        return flag.names.some(name => {
+          // If the name of the flag and the name of the requested flag are the same, case insensitive
+          return name.toLowerCase() === args[0].toLowerCase()
+        })
+      })
+
+      if (requestedFlag === undefined) {
+        message.channel.send(new Discord.MessageEmbed({
+          author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
+          color: randomRainbowColor(),
+          fields: [
+            {
+              name: '\u200b',
+              value: 'Sorry, I don\'t have that pride flag uploaded. Send it to me and I\'ll add it as soon as I can. Have this flag in the meantime'
+            }
+          ],
+          image: { url: 'https://cdn.discordapp.com/attachments/716108846816297040/823668797248372766/Z.png' }
+        }))
+        return
+      }
+
+      message.channel.send(new Discord.MessageEmbed({
+        author: { name: 'Pride', iconURL: 'https://cdn.discordapp.com/attachments/716108846816297040/823648970215522304/image.png' },
+        color: randomRainbowColor(),
+        image: { url: requestedFlag.flagUrl }
+      }))
+    })
+    /**
     switch (args[0].toLowerCase()) {
       case 'gay':
         message.channel.send(new Discord.MessageEmbed({
@@ -157,5 +196,6 @@ Aspergers / Aspie`
         }))
         break
     }
+    */
   }
 }
