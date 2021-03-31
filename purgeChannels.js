@@ -2,8 +2,10 @@
 
 const fs = require('fs')
 const client = require('./client.js')
+const log = require('./log')
 
 module.exports = () => {
+  log('Purging...')
   fs.readFile('./purgeChannels.json', (err, data) => {
     // Error handling
     if (err) {
@@ -14,6 +16,7 @@ module.exports = () => {
 
     // For each guild in purgeChannels.json
     Object.entries(purgeChannels).forEach((purgeGuild) => {
+      log('Found purge guidl')
       // Get the guild
       const guild = client.guilds.resolve(purgeGuild[0])
 
@@ -21,6 +24,7 @@ module.exports = () => {
       if (guild.available) {
         // For each channel in purgeChannels.json
         Object.entries(purgeGuild[1]).forEach((purgeChannel) => {
+          log('Found purge channel')
           // If the channel is set to be purged
           if (purgeChannel[1]) {
             // Get the channel
@@ -33,10 +37,13 @@ module.exports = () => {
                 // Fetch messages, and then delete each of them
                 channel.messages.fetch().then((purgeMessages) => {
                   isMessages = !!purgeMessages.first()
+                  log(isMessages)
+                  log(purgeMessages.size)
                   purgeMessages.each((message) => {
                     message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
                   })
                 })
+                  .catch(log)
               } while (isMessages) // While there are still messages in the channel
             }
           }
@@ -44,4 +51,5 @@ module.exports = () => {
       }
     })
   })
+  log('Purged!')
 }
