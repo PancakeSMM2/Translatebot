@@ -35,7 +35,7 @@ module.exports = () => {
               let isMessages
               do {
                 // Fetch messages, and then delete each of them
-                channel.messages.fetch().then((purgeMessages) => {
+                channel.messages.fetch({ limit: 100 }, false, true).then((purgeMessages) => {
                   isMessages = !!purgeMessages.first()
                   log(isMessages)
                   log(purgeMessages.size)
@@ -50,6 +50,6 @@ module.exports = () => {
         })
       }
     })
+    log('Purged!')
   })
-  log('Purged!')
 }
