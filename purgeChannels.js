@@ -23,7 +23,7 @@ module.exports = () => {
       // If the guild is available
       if (guild.available) {
         // For each channel in purgeChannels.json
-        Object.entries(purgeGuild[1]).forEach((purgeChannel) => {
+        Object.entries(purgeGuild[1]).forEach(async purgeChannel => {
           log('Found purge channel')
           // If the channel is set to be purged
           if (purgeChannel[1]) {
@@ -35,15 +35,13 @@ module.exports = () => {
               let isMessages
               do {
                 // Fetch messages, and then delete each of them
-                channel.messages.fetch({ limit: 100 }, false, true).then((purgeMessages) => {
-                  isMessages = !!purgeMessages.first()
-                  log(isMessages)
-                  log(purgeMessages.size)
-                  purgeMessages.each((message) => {
-                    message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
-                  })
+                const purgeMessages = await channel.messages.fetch({ limit: 100 }, false, true)
+                isMessages = !!purgeMessages.first()
+                log(isMessages)
+                log(purgeMessages.size)
+                purgeMessages.each((message) => {
+                  message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
                 })
-                  .catch(log)
               } while (isMessages) // While there are still messages in the channel
             }
           }
