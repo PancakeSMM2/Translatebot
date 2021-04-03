@@ -39,8 +39,8 @@ module.exports = () => {
                 isMessages = !!purgeMessages.first()
                 log(isMessages)
                 log(purgeMessages.size)
-                purgeMessages.each((message) => {
-                  message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
+                purgeMessages.each(async (message) => {
+                  await message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
                 })
               } while (isMessages) // While there are still messages in the channel
             }
