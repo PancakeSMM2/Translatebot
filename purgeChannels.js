@@ -36,7 +36,7 @@ module.exports = () => {
               let lastMessage
               do {
                 // Fetch messages, excluding messages that have already been fetched
-                const purgeMessages = lastMessage ? await channel.messages.fetch({ limit: 100, after: lastMessage }, false, true) : await channel.messages.fetch({ limit: 100 }, false, true)
+                const purgeMessages = lastMessage ? await channel.messages.fetch({ limit: 100, before: lastMessage }, false, true) : await channel.messages.fetch({ limit: 100 }, false, true)
                 isMessages = !!purgeMessages.first() // Sets isMessages based off of whether any messages were fetched
                 lastMessage = purgeMessages.last().id // Stores the furthest back message
                 log(isMessages)
