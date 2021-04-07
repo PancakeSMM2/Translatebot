@@ -33,47 +33,8 @@ client.once('ready', () => {
 
 client.on('message', (message) => {
   // If the message starts with the prefix AND does not come from a bot
-  // eslint-disable-next-line valid-typeof
   if (message.content.startsWith(config.prefix) && !message.author.bot) {
     commandHandler(message)
-    /*
-    // Gets the command arguments (as an array) and the command itself (as a string)
-    const args = message.content.slice(config.prefix.length).trim().split(/ +/)
-    const commandName = args.shift().toLowerCase()
-
-    // If the attempted command is a command the bot has
-    if (client.commands.has(commandName)) {
-      // Get the command
-      const command = client.commands.get(commandName)
-      // Do safety checks
-      if (command.DMonly && message.channel.type !== 'dm') {
-        message.channel.send(new Discord.MessageEmbed({
-          fields: [
-            { name: 'Error', value: 'That command is DM-only', color: randomRainbowColor() }
-          ]
-        }))
-        return
-      } else if (command.guildOnly && message.channel.type !== 'text') {
-        message.channel.send(new Discord.MessageEmbed({
-          fields: [
-            { name: 'Error', value: 'That command is for guild channels only', color: randomRainbowColor() }
-          ]
-        }))
-        return
-      }
-      // Try to execute the command, and catch any errors
-      try {
-        command.execute(message, args)
-      } catch (error) {
-        // Logs the error to the console, and tells the user about the error.
-        console.error(error)
-        message.reply(`There was an error executing that command. Please let one of the devs know, something has likely just gone quite wrong.
-        ${error}`)
-      }
-    } else { // If that command does not exist
-      message.react('❓')
-    }
-    */
   }
 
   // If the message is sent in a guild
