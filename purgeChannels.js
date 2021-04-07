@@ -20,7 +20,7 @@ module.exports = () => {
       // If the guild is available
       if (guild.available) {
         // For each channel in purgeChannels.json
-        Object.entries(purgeGuild[1]).forEach((purgeChannel) => {
+        Object.entries(purgeGuild[1]).forEach(async purgeChannel => {
           // If the channel is set to be purged
           if (purgeChannel[1]) {
             // Get the channel
@@ -29,13 +29,14 @@ module.exports = () => {
             // If the channel is a text channel
             if (channel.isText()) {
               let isMessages
+              let lastMessage
               do {
-                // Fetch messages, and then delete each of them
-                channel.messages.fetch().then((purgeMessages) => {
-                  isMessages = !!purgeMessages.first()
-                  purgeMessages.each((message) => {
-                    message.delete({ reason: `Routine purge of <#${message.channel.id}>` })
-                  })
+                // Fetch messages, excluding messages that have already been fetched
+                const purgeMessages = lastMessage !== undefined ? await channel.messages.fetch({ limit: 100, before: lastMessage.id }, false, true) : await channel.messages.fetch({ limit: 100 }, false, true)
+                isMessages = !!purgeMessages.first() // Sets isMessages based off of whether any messages were fetched
+                lastMessage = purgeMessages.last() // Stores the furthest back message
+                purgeMessages.each(async (message) => { // For each message to be deleted
+                  await message.delete({ reason: `Routine purge of <#${message.channel.id}>` }) // Delete it
                 })
               } while (isMessages) // While there are still messages in the channel
             }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 [ 
   { 
     "names": [ 
@@ -100,4 +101,108 @@
     ],
     "flagUrl": "https://cdn.discordapp.com/attachments/817205249495269417/829183115494686771/6tkzs2i4ar851.png"
   }
+=======
+[ 
+  { 
+    "names": [ 
+      "Lesbian",
+      "Les"
+    ], 
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823663988104626247/640px-Lesbian_Pride_Flag_2019.png"
+  },
+  {
+    "names": [
+      "Gay"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823663803702968320/Rainbow.png"
+  },
+  {
+    "names": [
+      "Bisexual",
+      "Bi"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823665074925338644/BLHYUZifUJVVQaEAN6nZufycAAAA7ElEQVR4nO3QwRGCAAAEsRMU6L9iSti3M0kJ2QAAAAAAAAAAAAAAAAAAAAAAAAD0EnYl7AfY.png"
+  },
+  {
+    "names": [
+      "Pansexual",
+      "Pan"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823666382020411442/nMR9hJ2EhQlRUlRUpQUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVKUFCVFSVFSlBQlRUlRU.png"
+  },
+  {
+    "names": [
+      "Asexual",
+      "Ace"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823666508486934528/FSLixSyIhGwAAAAAAAAAAAAAAwL99CfsRdhIUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVKUFCVFSVFSlBQlRUlRUpQUJUVJUVK.png"
+  },
+  {
+    "names": [
+      "Demisexual",
+      "Demi"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/764208539597406268/824639300024664074/RbpkCiS86j4cykPlhd9rmpSCbbvt40kF62mKvIajAPObpNcP9P2AAAAAElFTkSuQmCC.png"
+  },
+  {
+    "names": [
+      "Demilesbian",
+      "Demiles"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/764208539597406268/824635686866124851/1If7PhUIbRrVwgrF9ozocPKgGzrByoRsq0fbFTItn6oESHbuFs68ls68ls68ls68ls68ls68ls68ls68ls68ls68ls68ls68nA40.png"
+  },
+  {
+    "names":[
+      "Gay-Biromantic",
+      "Gaybirom"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/764208539597406268/825383910689996850/Gay_man_biromantic_flag.png"
+  },
+  {
+    "names": [
+      "Aromantic",
+      "Aro"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/538819764634517504/823683280846061578/unknown.jpeg"
+  },
+  {
+    "names":[
+      "AroAce"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/764208539597406268/825413929663856680/tumblr_pjlk1w0Hos1xhbsbmo1_1280.png"
+  },
+  {
+    "names": [
+      "Transgender",
+      "Trans"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823667011094577222/qI59NEJAAAAAAAAAMB2ngC8qZlebzLVTwAAAABJRU5ErkJggg.png"
+  },
+  {
+    "names": [
+      "Nonbinary",
+      "Nonbi"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823667198752325672/HQiIhMwAAAAAAAAAAAAAAQDzZ5sU2b7a5szkpJWknJSTclJOykk5KSflpJyUk3JSTspJOSkn5aSclJNyUk7KSTkpJWknJSTclJOy.png"
+  },
+  {
+    "names": [
+      "Genderfluid"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/716108846816297040/823667739331002478/images.png"
+  },
+  {
+    "names": [
+      "Aspergers",
+      "Aspie"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/743231450014285954/805857615409315860/JaK7FFlMaaUQqwSUUVBYpIoIgEikigiASKSKCIBIpIoIgEikigiASKSKCIBIpIoIgEikigiASKSKCIBIpIoIgEikiCBiAImoAg2A.png"
+  },
+  {
+    "names": [
+      "Therian"
+    ],
+    "flagUrl": "https://cdn.discordapp.com/attachments/817205249495269417/829183115494686771/6tkzs2i4ar851.png"
+  }
+>>>>>>> d3bb75a2cfc85398d9134d87715c28296dd08ec9
 ]

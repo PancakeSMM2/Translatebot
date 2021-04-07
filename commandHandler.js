@@ -34,6 +34,13 @@ module.exports = (message) => {
         ]
       }))
       return
+    } else if (command.ownerOnly && message.author.id !== config.ownerID) {
+      message.channel.send(new Discord.MessageEmbed({
+        fields: [
+          { name: 'Error', value: 'That command can only be used by the owner. Sorry, I just got scared about security', color: randomRainbowColor() }
+        ]
+      }))
+      return
     }
     // Try to execute the command, and catch any errors
     try {
