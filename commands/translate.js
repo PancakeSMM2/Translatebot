@@ -71,7 +71,7 @@ Please also be courteous when selecting a high number of cycles, and do not do i
 
       // If translate failed to detect a language, assume english. Otherwise, get the language details from the array of supported languages
       let previousLang
-      if (detectedLangCode === null) {
+      if (detectedLangCode === null || detectedLangCode === 'und') {
         previousLang = {
           code: 'en',
           name: 'English'
