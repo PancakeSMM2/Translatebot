@@ -35,9 +35,7 @@ module.exports = () => {
                 const purgeMessages = lastMessage !== undefined ? await channel.messages.fetch({ limit: 100, before: lastMessage.id }, false, true) : await channel.messages.fetch({ limit: 100 }, false, true)
                 isMessages = !!purgeMessages.first() // Sets isMessages based off of whether any messages were fetched
                 lastMessage = purgeMessages.last() // Stores the furthest back message
-                purgeMessages.each(async (message) => { // For each message to be deleted
-                  await message.delete({ reason: `Routine purge of <#${message.channel.id}>` }) // Delete it
-                })
+                channel.bulkDelete(purgeMessages)
               } while (isMessages) // While there are still messages in the channel
             }
           }
