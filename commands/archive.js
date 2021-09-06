@@ -4,6 +4,8 @@ let channels = require('../archivalChannels.json')
 const Discord = require('discord.js')
 const fs = require('fs')
 const randomRainbowColor = require('../randomRainbowColor')
+const client = require('../client')
+const log = require('../log')
 
 module.exports = {
   name: 'archive',
@@ -23,22 +25,26 @@ module.exports = {
       case 2:
         // If args[0] and args[1] are both numbers
         if (!isNaN(args[0]) && !isNaN(args[1])) {
+          const sourceChannel = client.channels.resolve(args[0])
+          const targetChannel = client.channels.resolve(args[1])
+          if (!sourceChannel || !targetChannel) {
+            return
+          } else if (!sourceChannel.isText() || !targetChannel.isText()) return
+
           // Assign the output channel to the source channel
           channels[args[0]] = args[1]
 
           // Write the new value of channels to archivalChannels.json
-          fs.writeFileSync('./archivalChannels.json', JSON.stringify(channels), null, (err) => {
-            if (err) throw err // Error handling
-          })
+          fs.writeFileSync('./archivalChannels.json', JSON.stringify(channels))
 
           // Delete the cache of archivalChannels.json
           delete require.cache[require.resolve('../archivalChannels.json')]
           // Refresh the cache
           channels = require('../archivalChannels.json')
 
-          // Reply with an embed
-          message.channel.send(new Discord.MessageEmbed({
-            author: { name: 'Archival' }, // Possible to-do: add author icon
+          // Reply with an embed (in the source channel)
+          sourceChannel.send(new Discord.MessageEmbed({
+            author: { name: 'Archival', iconURL: 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fwww.emoji.co.uk%2Ffiles%2Ftwitter-emojis%2Fobjects-twitter%2F11033-scroll.png&f=1&nofb=1' }, // Possible to-do: add author icon
             color: randomRainbowColor(), // Set the color to a random rainbow color
             fields: [ // Set the fields
               {
@@ -48,7 +54,11 @@ module.exports = {
             ]
           })).then(reply => {
             // Once the message has been sent, pin it
-            reply.pin({ reason: 'Reply to archive command' })
+            try {
+              reply.pin({ reason: 'Reply to stoparchive command' })
+            } catch (err) {
+              log(err)
+            }
           })
         }
         break
