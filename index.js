@@ -9,6 +9,7 @@ const avatarReset = require('./avatarReset')
 const config = require('./config.json')
 const keys = require('./Security/keys.json')
 const log = require('./log.js')
+const channels = require('./archivalChannels.json')
 // Creates a new client
 const client = require('./client.js')
 // const randomRainbowColor = require('./randomRainbowColor.js')
@@ -39,7 +40,22 @@ client.on('message', (message) => {
 
   // If the message is sent in a guild
   if (message.channel.type === 'text') {
-  // imagesOnly enforcer
+    // Archival
+    if (channels[message.channel.id]) {
+      const embed = new Discord.MessageEmbed()
+        .setDescription(message.content)
+        .setColor(client.guilds.cache.get(message.guild.id).members.cache.get(message.author.id).displayHexColor)
+        .setTimestamp(message.createdTimestamp)
+
+      if (client.guilds.cache.get(message.guild.id).members.cache.get(message.author.id).nickname) embed.setAuthor(client.guilds.cache.get(message.guild.id).members.cache.get(message.author.id).nickname, message.author.displayAvatarURL(), message.url)
+      else embed.setAuthor(message.author.username, message.author.displayAvatarURL(), message.url)
+
+      if (message.attachments.first()) embed.setImage(message.attachments.first().proxyURL)
+
+      client.channels.cache.get(channels[message.channel.id]).send(embed)
+    }
+
+    // imagesOnly enforcer
     fs.readFile('./imagesOnly.json', (err, data) => {
     // Error handling
       if (err) {
