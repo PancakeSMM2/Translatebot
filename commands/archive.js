@@ -27,7 +27,7 @@ module.exports = {
           channels[args[0]] = args[1]
 
           // Write the new value of channels to archivalChannels.json
-          fs.writeFile('./archivalChannels.json', JSON.stringify(channels), null, (err) => {
+          fs.writeFileSync('./archivalChannels.json', JSON.stringify(channels), null, (err) => {
             if (err) throw err // Error handling
           })
 
